@@ -10,7 +10,10 @@ pipeline {
         stage('copy war file')
         {
             steps{
-                sh "sshpass -p 'vagrant' scp /var/lib/jenkins/workspace/hello-world/target/helloworld-1.1.jar vagrant@192.168.33.12:/home/vagrant/"
+                withCredentials([file(credentialsId: 'vagrant2'])
+                         {
+                      sh "sshpass -p 'vagrant' scp /var/lib/jenkins/workspace/hello-world/target/helloworld-1.1.jar vagrant@192.168.33.12:/home/vagrant/"
+                         }
             }
         }
       }
